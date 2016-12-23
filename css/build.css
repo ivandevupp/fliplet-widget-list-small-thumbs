@@ -21,28 +21,6 @@
 	cursor: pointer;
 }
 
-.list.list-thumb-s ul > li .panel-link-icon {
-	display: none;
-}
-
-.list ul > li .icon {
-	display: none;
-	position: absolute;
-	width: 44px;
-	height: 44px;
-	top: 50%;
-	right: 0;
-	margin-top: -22px;
-	font-size: 18px;
-	line-height: 44px;
-	text-align: center;
-	color: red;
-}
-
-.list.list-thumb-s ul > li.linked .icon {
-	display: block;
-}
-
 .list.list-thumb-s ul > li .list-image img {
 	position: absolute;
 	margin: auto;
