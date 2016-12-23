@@ -1,0 +1,44 @@
+{
+  "name": "Panels",
+  "package": "com.fliplet.list-small-thumbs",
+  "version": "1.0.0",
+  "icon": "img/icon.png",
+  "tags": ["type:component", "category:list"],
+  "provider_only": false,
+  "html_tag": "div",
+  "providers": [
+    "com.fliplet.link",
+    "com.fliplet.image-manager"
+  ],
+  "interface": {
+    "dependencies": [
+      "fliplet-core",
+      "fliplet-studio-ui",
+      "jquery-ui",
+      "lodash",
+      "handlebars",
+      "bootstrap"
+    ],
+    "assets": [
+      "vendor/color-picker.js",
+      "vendor/color-picker.css",
+      "js/interface.js",
+      "css/interface.css"
+    ]
+  },
+  "build": {
+    "dependencies": [
+      "fliplet-core",
+      "bootstrap-css",
+      "font-awesome",
+      "lodash"
+    ],
+    "assets": [
+      "js/build.js",
+      "css/build.css"
+    ]
+  },
+  "references": [
+    "items.$.linkAction.page:page"
+  ]
+}

@@ -1,0 +1,41 @@
+{{#if items.length}}
+<div data-list-thumb-s-id="{{id}}" class="list list-thumb-s">
+    <ul>
+      {{#each items}}
+      <li class="{{#if linkAction}} linked{{/if}}" data-thumb-s-item-id="{{id}}">
+        <div class="list-image" style="background-color: {{color}};{{#if imageConf}} background-image: url('{{imageConf.url}}'){{/if}}"><p class=hidden></p></div>
+        <div class="list-desc">
+          <p class="list-title">{{title}}</p>
+          {{#if description}}<p>{{description}}</p>{{/if}}
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+</div>
+{{else}}
+<div class="list list-thumb-s placeholder">
+  <ul>
+    <li class="">
+      <div class="list-image" style="background-color: #c7c7c7;"><p class="hidden"></p></div>
+      <div class="list-desc">
+        <p class="list-title">List item 1</p>
+        <p>This is a default item, edit your list's settings to configure your content. Don't forget to view your app on different devices by changing the device preview.</p>
+      </div>
+    </li>
+    <li class="">
+      <div class="list-image" style="background-color: #c7c7c7;"><p class="hidden"></p></div>
+      <div class="list-desc">
+        <p class="list-title">List item 2</p>
+        <p>This is a default item, edit your list's settings to configure your content. Don't forget to view your app on different devices by changing the device preview.</p>
+      </div>
+    </li>
+    <li class="">
+      <div class="list-image" style="background-color: #c7c7c7;"><p class="hidden"></p></div>
+      <div class="list-desc">
+        <p class="list-title">List item 3</p>
+        <p>This is a default item, edit your list's settings to configure your content. Don't forget to view your app on different devices by changing the device preview.</p>
+      </div>
+    </li>
+  </ul>
+</div>
+{{/if}}
