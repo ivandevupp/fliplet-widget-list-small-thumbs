@@ -1,5 +1,5 @@
 {
-  "name": "Panels",
+  "name": "List w/ small thumbnails",
   "package": "com.fliplet.list-small-thumbs",
   "version": "1.0.0",
   "icon": "img/icon.png",
