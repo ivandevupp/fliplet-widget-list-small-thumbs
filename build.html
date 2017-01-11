@@ -6,7 +6,7 @@
         <div class="list-image" style="background-color: {{color}};{{#if imageConf}} background-image: url('{{imageConf.url}}'){{/if}}"><p class=hidden></p></div>
         <div class="list-desc">
           <p class="list-title">{{title}}</p>
-          {{#if description}}<p>{{description}}</p>{{/if}}
+          {{#if description}}<p>{{nl2br description}}</p>{{/if}}
         </div>
       </li>
       {{/each}}
