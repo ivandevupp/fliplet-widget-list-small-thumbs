@@ -338,35 +338,18 @@ function addListItem(data) {
 }
 
 function initColorPicker(item) {
-  var picker = new CP(document.querySelector('#list-item-color-' + item.id));
-
-  $('#list-item-color-' + item.id).on('keyup change paste', function() {
-    picker.set(this.value);
-    picker.trigger("change", [this.value.substring(1)], 'main-change');
-    debounceSave();
+  // bind plugins on inputs
+  $('#list-item-color-' + item.id).parents('[colorpicker-component]').colorpicker({
+    container: true
   });
 
-  picker.on("change", function(color) {
-    this.target.value = '#' + color;
-    $($(this.target).siblings('div')[0]).css('background-color', '#' + color);
+  $('#list-item-color-' + item.id).on('focus', function() {
+    $(this).prev('.input-group-addon').find('i').trigger('click');
+  });
+
+  $('#list-item-color-' + item.id).on('change', function() {
     debounceSave();
-  }, 'main-change');
-
-  var colors = ['1d3f68', '00abd2', '036b95', 'ffd21d', 'ed9119', 'e03629', '831811', '5e0f0f', '23a437', '076c31'],
-    box;
-
-  for (var i = 0, len = colors.length; i < len; ++i) {
-    box = document.createElement('span');
-    box.className = 'color-picker-box';
-    box.title = '#' + colors[i];
-    box.style.backgroundColor = '#' + colors[i];
-    box.addEventListener("click", function(e) {
-      picker.set(this.title);
-      picker.trigger("change", [this.title.slice(1)], 'main-change');
-      e.stopPropagation();
-    }, false);
-    picker.picker.firstChild.appendChild(box);
-  }
+  });
 }
 
 function checkPanelLength() {
