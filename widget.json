@@ -43,6 +43,7 @@
     ]
   },
   "references": [
-    "items.$.linkAction.page:page"
+    "items.$.linkAction.page:page",
+    "items.$.imageConf.id:mediaFile"
   ]
 }
