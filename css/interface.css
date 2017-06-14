@@ -396,6 +396,12 @@ textarea.form-control {
   float: left;
 }
 
+.thumb-holder {
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
 .thumb-image {
   float: left;
   margin-left: 10px;

@@ -49,23 +49,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <div class="col-sm-4 control-label">
-                    <label for="list-item-link-{{id}}">Link</label>
-                  </div>
-                  <div class="col-sm-8">
-                    <div class="btn btn-default list-item-set-link {{#if linkAction}} hidden{{/if}}">Add Link</div>
-                    <div class="btn btn-link text-danger link-remove {{#unless linkAction}} hidden {{/unless}}">Remove Link</div>
-                    <div class="add-link"></div>
-                  </div>
-                </div>
-
-                <h2><small>Configure item thumbnail</small></h2>
-                <div class="row">
-                  <div class="col-xs-12">
-                    <p class="help-block">Adding an image will override the color chosen. Whoever if the image has transparency, the color will be shown underneath.</p>
-                  </div>
-                </div>
+                <div class="add-link"></div>
 
                 <div class="form-group">
                   <div class="col-sm-4 control-label">
@@ -76,6 +60,12 @@
                       <div class="input-group-addon"><i style="background-color:{{ color }}"></i></div>
                       <input type="text" id="list-item-color-{{id}}" class="form-control list-item-color" value="{{color}}">
                     </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-xs-12">
+                    <p class="help-block">Adding an image will override the chosen colour. However if the image has transparency, the colour will be shown underneath.</p>
                   </div>
                 </div>
 
@@ -194,23 +184,7 @@
               </div>
             </div>
 
-            <div class="form-group">
-              <div class="col-sm-4 control-label">
-                <label for="list-item-link-\{{id}}">Link</label>
-              </div>
-              <div class="col-sm-8">
-                <div class="btn btn-default list-item-set-link">Add Link</div>
-                <div class="btn btn-link text-danger link-remove hidden">Remove Link</div>
-                <div class="add-link"></div>
-              </div>
-            </div>
-
-            <h2><small>Configure item thumbnail</small></h2>
-            <div class="row">
-              <div class="col-xs-12">
-                <p class="help-block">Adding an image will override the color chosen. Whoever if the image has transparency, the color will be shown underneath.</p>
-              </div>
-            </div>
+            <div class="add-link"></div>
 
             <div class="form-group">
               <div class="col-sm-4 control-label">
@@ -221,6 +195,12 @@
                   <div class="input-group-addon"><i style="background-color:#00abd2"></i></div>
                   <input type="text" id="list-item-color-\{{id}}" class="form-control list-item-color" value="#00abd2">
                 </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12">
+                <p class="help-block">Adding an image will override the chosen colour. However if the image has transparency, the colour will be shown underneath.</p>
               </div>
             </div>
 
