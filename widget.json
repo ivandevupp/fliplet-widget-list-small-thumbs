@@ -31,15 +31,13 @@
       "fliplet-core",
       "bootstrap-css",
       "font-awesome",
-      "lodash"
+      "lodash",
+      "list-swipe",
+      "mixitup"
     ],
     "assets": [
-      "vendor/jquery.mixitup.min.js",
-      "lib/list-swipe.js",
-      "lib/list-swipe-save.js",
       "js/build.js",
-      "css/build.css",
-      "lib/list-swipe.css"
+      "css/build.css"
     ]
   },
   "references": [
