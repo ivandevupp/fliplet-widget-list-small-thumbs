@@ -113,23 +113,19 @@
     <div role="tabpanel" class="tab-pane tab-pane-content" id="swipe-save">
       <p>Enable <em>Swipe to Save</em> to let your users swipe on any list item to save/bookmark it for later.</p>
 
-      <div class="form-group">
+      <div class="form-group inline-radio">
         <div class="col-sm-4 control-label">
           <label for="swipe-to-save">Enable Swipe to Save</label>
         </div>
         <div class="col-sm-8">
           <div class="radio-buttons clearfix">
-            <div class="radio">
+            <div class="radio radio-icon">
               <input type="radio" id="swipe-to-save-yes" name="enable_list_saving" value="swipe-to-save-yes" {{#if swipeToSave}}checked{{/if}}>
-              <label for="swipe-to-save-yes">
-                    Yes
-                  </label>
+              <label for="swipe-to-save-yes">Yes</label>
             </div>
-            <div class="radio">
+            <div class="radio radio-icon">
               <input type="radio" id="swipe-to-save-no" name="enable_list_saving" value="swipe-to-save-no" {{#if swipeToSave}}{{else}}checked{{/if}}>
-              <label for="swipe-to-save-no">
-                    No
-                  </label>
+              <label for="swipe-to-save-no">No</label>
             </div>
           </div>
         </div>
