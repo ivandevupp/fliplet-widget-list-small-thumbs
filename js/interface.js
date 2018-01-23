@@ -400,5 +400,5 @@ function save(notifyComplete, dragStop) {
     Fliplet.Widget.save(data).then(function() {
       Fliplet.Studio.emit('reload-widget-instance', widgetId);
     });
-  } 
+  }
 }
