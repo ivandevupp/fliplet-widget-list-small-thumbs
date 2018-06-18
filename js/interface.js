@@ -5,6 +5,8 @@ var data = Fliplet.Widget.getData() || {
   },
   linkPromises = [];
 
+console.log(data);
+
 if (_.isUndefined(data.items)) {
   data.items = [];
 }
@@ -136,6 +138,34 @@ $(".tab-content")
     $(this).parents('.add-image-holder').find('.thumb-holder').addClass('hidden');
     save();
   })
+  .on('click', '.add-icon', function() {
+    var $item = $(this).closest("[data-id], .panel"),
+      id = $item.data('id'),
+      item = _.find(data.items, {
+        id: id
+      });
+
+    initIconProvider(item);
+
+    $(this).text('Replace icon');
+    if ($(this).siblings('.icon-holder').hasClass('hidden')) {
+      $(this).siblings('.icon-holder').removeClass('hidden');
+    }
+  })
+  .on('click', '.icon-remove', function() {
+    var $item = $(this).closest("[data-id], .panel"),
+      id = $item.data('id'),
+      item = _.find(data.items, {
+        id: id
+      });
+
+    var iconBak = item.icon;
+    item.icon = undefined;
+    $(this).parents('.add-icon-holder').find('.add-icon').text('Select an icon');
+    $(this).parents('.add-icon-holder').find('.selected-icon').removeClass(iconBak);
+    $(this).parents('.add-icon-holder').find('.icon-holder').addClass('hidden');
+    save();
+  })
   .on('keyup change paste', '.list-item-title', function() {
     var $listItem = $(this).parents('.panel');
     setListItemTitle($listItem.index(), $(this).val());
@@ -250,8 +280,57 @@ function initLinkProvider(item) {
   linkPromises.push(linkActionProvider);
 }
 
-var imageProvider;
+var iconProvider;
+function initIconProvider(item) {
+  item.icon = item.icon || '';
 
+  iconProvider = Fliplet.Widget.open('com.fliplet.icon-selector', {
+    // Also send the data I have locally, so that
+    // the interface gets repopulated with the same stuff
+    data: item,
+    // Events fired from the provider
+    onEvent: function(event, data) {
+      if (event === 'interface-validate') {
+        Fliplet.Widget.toggleSaveButton(data.isValid === true);
+      }
+    }
+  });
+
+  window.addEventListener('message', function(event) {
+    if (event.data === 'cancel-button-pressed') {
+      iconProvider.close();
+      iconProvider = null;
+      if (!item.icon.length) {
+        $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
+        $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
+      }
+
+      Fliplet.Studio.emit('widget-save-label-update', {
+        text: 'Save'
+      });
+    }
+  });
+
+  Fliplet.Studio.emit('widget-save-label-update', {
+    text: 'Select & Save'
+  });
+
+  iconProvider.then(function(data) {
+    if (data.data) {
+      item.icon = data.data.icon;
+      $('[data-id="' + item.id + '"] .icon-wrapper').find('.selected-icon').addClass(data.data.icon);
+      save();
+    }
+
+    Fliplet.Studio.emit('widget-save-label-update', {
+      text: 'Save'
+    });
+    iconProvider = null;
+    return Promise.resolve();
+  });
+}
+
+var imageProvider;
 function initImageProvider(item) {
   imageProvider = Fliplet.Widget.open('com.fliplet.image-manager', {
     // Also send the data I have locally, so that
@@ -373,6 +452,8 @@ function checkPanelLength() {
 Fliplet.Widget.onSaveRequest(function() {
   if (imageProvider) {
     imageProvider.forwardSaveRequest();
+  } else if (iconProvider) {
+    iconProvider.forwardSaveRequest();
   } else {
     save(true);
   }
