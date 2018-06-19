@@ -17,7 +17,13 @@
     {{#each items}}
     <li class="{{#if linkAction}} linked{{/if}}" data-thumb-s-item-id="{{id}}">
       <div class="list-image" style="background-color: {{color}};{{#if imageConf}} background-image: url('{{imageConf.url}}'){{/if}}">
-        <p class=hidden></p>
+        {{#unless imageConf}}
+          {{#if icon}}
+          <div class="fl-list-icon">
+            <i class="{{icon}}"></i>
+          </div>
+          {{/if}}
+        {{/unless}}
       </div>
       <div class="list-desc">
         <p class="list-title">{{title}}</p>
