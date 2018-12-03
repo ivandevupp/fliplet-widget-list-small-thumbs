@@ -71,7 +71,6 @@ body {
 .panel {
   opacity: 1;
   -webkit-transition: opacity 100ms linear;
-  background-color: #f2f6f7;
 }
 
 .panel.focus {
@@ -85,16 +84,6 @@ body {
 .panel.focus .icon-delete {
   opacity: 0 !important;
   -webkit-transition: opacity 50ms linear;
-}
-
-.panel-default {
-  border-color: #d3dbde;
-}
-
-.panel-default > .panel-heading {
-  background-color: #e4e9eb;
-  border-color: #d3dbde;
-  border-radius: 0;
 }
 
 .panel-heading {
@@ -158,7 +147,7 @@ body {
 
 .placeholder {
   border: 1px solid rgb(0, 171, 210);
-  background-color: #f2f6f7;
+  background-color: #f4f1f2;
   -webkit-box-shadow: rgba(0, 0, 0, 0.07) 0 1px 1px 0 inset, rgba(0, 171, 210, 0.4) 0 0 6px 0;
   -moz-box-shadow: rgba(0, 0, 0, 0.07) 0 1px 1px 0 inset, rgba(0, 171, 210, 0.4) 0 0 6px 0;
   box-shadow: rgba(0, 0, 0, 0.07) 0 1px 1px 0 inset, rgba(0, 171, 210, 0.4) 0 0 6px 0;
