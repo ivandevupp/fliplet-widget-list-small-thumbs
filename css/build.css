@@ -81,9 +81,14 @@
 	font-size: 30px;
 }
 
-.list.list-thumb-s ul > li.linked:after {
-	content: "\f105";
-	font: normal normal normal 14px/1 FontAwesome;
+.list.list-thumb-l ul > li .list-icon {
+	display: none;
+}
+
+.list.list-thumb-l ul > li.linked .list-icon {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	position: absolute;
 	width: 44px;
 	height: 44px;

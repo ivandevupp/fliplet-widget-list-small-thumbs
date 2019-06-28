@@ -1,7 +1,7 @@
 {
   "name": "List (small thumbnails)",
   "package": "com.fliplet.list-small-thumbs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "icon": "img/icon.png",
   "tags": ["type:component", "category:list"],
   "provider_only": false,
