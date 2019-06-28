@@ -16,7 +16,7 @@
   <ul class="list-holder {{#if swipeToSave}}list-swipe{{/if}}">
     {{#each items}}
     <li class="{{#if linkAction}}linked{{/if}} {{#if imageConf}}has-image{{else}}no-image{{/if}} {{#if icon}}has-icon{{else}}no-icon{{/if}}" data-thumb-s-item-id="{{id}}">
-      <div class="list-image" style="background-color: {{color}};{{#if imageConf}} background-image: url('{{imageConf.url}}'){{/if}}">
+      <div class="list-image" {{#if imageConf}}style="background-image: url('{{imageConf.url}}')"{{/if}}>
         {{#unless imageConf}}
           {{#if icon}}
           <div class="fl-list-icon">
