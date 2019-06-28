@@ -81,11 +81,11 @@
 	font-size: 30px;
 }
 
-.list.list-thumb-s ul > li .list-icon {
+.list.list-thumb-l ul > li .list-icon {
 	display: none;
 }
 
-.list.list-thumb-s ul > li.linked .list-icon {
+.list.list-thumb-l ul > li.linked .list-icon {
 	display: flex;
 	align-items: center;
 	justify-content: center;
