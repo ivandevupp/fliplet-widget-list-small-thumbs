@@ -47,10 +47,6 @@
 	padding: 10px 10px 10px 62px;
 	position: relative;
 	min-height: 56px;
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	flex-direction: column;
 }
 
 .list.list-thumb-s ul > li .list-swipe-wrapper {
