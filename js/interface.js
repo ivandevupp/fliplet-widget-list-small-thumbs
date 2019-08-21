@@ -22,6 +22,9 @@ var $testElement = $('#testelement');
 
 var debounceSave = _.debounce(save, 500);
 
+// Indicate dragging state
+var dragging = false;
+
 enableSwipeSave();
 checkPanelLength();
 
@@ -36,6 +39,7 @@ setTimeout(function() {
     cursor: '-webkit-grabbing; -moz-grabbing;',
     axis: 'y',
     start: function(event, ui) {
+      dragging = true;
       var itemId = $(ui.item).data('id');
       var itemProvider = _.find(linkPromises, function(provider) {
         return provider.id === itemId;
@@ -72,6 +76,8 @@ setTimeout(function() {
         return sortedIds.indexOf(item.id);
       });
       $('.panel').not(ui.item).removeClass('faded');
+
+      dragging = false;
 
       save(false, true);
     },
@@ -198,6 +204,10 @@ $(".tab-content")
     save();
   })
   .on('show.bs.collapse', '.panel-collapse', function() {
+    if (dragging) {
+      return;
+    }
+
     // Get item ID / Get provider / Get item
     var itemID = $(this).parents('.panel').data('id');
     var itemProvider = _.find(linkPromises, function(provider) {
