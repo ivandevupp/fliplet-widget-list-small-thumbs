@@ -88,10 +88,6 @@ setTimeout(function() {
   });
 }, 1000);
 
-$('#help_tip').on('click', function() {
-  alert("During beta, please use live chat and let us know what you need help with.");
-});
-
 // EVENTS
 $(".tab-content")
   .on('click', '.icon-delete', function() {
@@ -461,7 +457,7 @@ function save(notifyComplete, dragStop) {
   linkPromises.forEach(function(promise) {
     promise.forwardSaveRequest();
   });
-  
+
   if (!dragStop) {
     Fliplet.Widget.all(linkPromises).then(function() {
       // when all providers have finished
