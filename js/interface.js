@@ -5,7 +5,6 @@ var data = Fliplet.Widget.getData() || {
   },
   linkPromises = [];
 
-
 if (_.isUndefined(data.items)) {
   data.items = [];
 }
