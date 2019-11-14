@@ -5,6 +5,9 @@ var data = Fliplet.Widget.getData() || {
   },
   linkPromises = [];
 
+var page = Fliplet.Widget.getPage();
+var omitPages = page ? [page.id] : [];
+
 if (_.isUndefined(data.items)) {
   data.items = [];
 }
@@ -257,6 +260,7 @@ function initLinkProvider(item) {
 
   item.linkAction = item.linkAction || {};
   item.linkAction.provId = item.id;
+  item.linkAction.omitPages = omitPages;
 
   var linkActionProvider = Fliplet.Widget.open('com.fliplet.link', {
     // If provided, the iframe will be appended here,
