@@ -422,6 +422,7 @@ function addListItem(data) {
   var $newPanel = $(templates.panel(data));
   $accordionContainer.append($newPanel);
 
+  $newPanel.find('.form-control.list-item-desc').attr('placeholder', 'Enter description');
   $newPanel.find('.form-control:eq(0)').select();
   $('.form-horizontal').stop().animate({
     scrollTop: $('.tab-content').height()
