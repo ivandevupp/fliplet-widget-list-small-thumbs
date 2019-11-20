@@ -418,6 +418,7 @@ function addListItem(data) {
   $accordionContainer.append($newPanel);
   initColorPicker(data);
 
+  $newPanel.find('.form-control.list-item-desc').attr('placeholder', 'Enter description');
   $newPanel.find('.form-control:eq(0)').select();
   $('.form-horizontal').stop().animate({
     scrollTop: $('.tab-content').height()
