@@ -432,8 +432,8 @@ function addListItem(data) {
 }
 
 function checkPanelLength() {
-  if ($('.panel').length > 0) {
-    if ($('.panel').length > 1) {
+  if (data.items.length > 0) {
+    if (data.items.length > 1) {
       $('.expand-items').removeClass("hidden");
     } else {
       $('.expand-items').addClass("hidden");
