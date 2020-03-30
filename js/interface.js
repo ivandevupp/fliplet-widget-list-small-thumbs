@@ -301,6 +301,8 @@ function initIconProvider(item) {
     }
   });
 
+  Fliplet.Widget.toggleCancelButton(false);
+
   window.addEventListener('message', function(event) {
     if (event.data === 'cancel-button-pressed') {
       iconProvider.close();
@@ -310,9 +312,8 @@ function initIconProvider(item) {
         $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
       }
 
-      Fliplet.Studio.emit('widget-save-label-update', {
-        text: 'Save'
-      });
+      Fliplet.Widget.resetSaveButtonLabel();
+      iconProvider = null;
     }
   });
 
@@ -370,6 +371,7 @@ function initImageProvider(item) {
         $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
       }
       
+      Fliplet.Widget.resetSaveButtonLabel();
       imageProvider = null;
     }
   });
