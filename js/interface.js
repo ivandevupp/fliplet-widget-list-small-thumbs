@@ -285,6 +285,47 @@ function initLinkProvider(item) {
   linkPromises.push(linkActionProvider);
 }
 
+function initListener(provider, item) { 
+  window.addEventListener('message', function onMessage(event) {
+    if (event.data === 'cancel-button-pressed') {
+      switch (provider) {
+        case 'icon':
+          onIconClose(item);         
+          break;
+        case 'image':
+          onImageClose(item);
+          break;
+      }
+
+      window.removeEventListener('message', onMessage);
+      Fliplet.Widget.toggleCancelButton(true);
+      Fliplet.Widget.resetSaveButtonLabel();
+    }
+  });
+}
+
+function onIconClose(item) {
+    iconProvider.close();
+
+    if (!item.icon.length) {
+      $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
+      $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
+    }
+
+    iconProvider = null;
+}
+
+function onImageClose(item) {
+    imageProvider.close();
+
+    if (_.isEmpty(item.imageConf)) {
+      $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
+      $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
+    }
+
+    imageProvider = null;
+}
+
 var iconProvider;
 function initIconProvider(item) {
   item.icon = item.icon || '';
@@ -303,19 +344,7 @@ function initIconProvider(item) {
 
   Fliplet.Widget.toggleCancelButton(false);
 
-  window.addEventListener('message', function(event) {
-    if (event.data === 'cancel-button-pressed') {
-      iconProvider.close();
-      iconProvider = null;
-      if (!item.icon.length) {
-        $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
-        $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
-      }
-
-      Fliplet.Widget.resetSaveButtonLabel();
-      iconProvider = null;
-    }
-  });
+  initListener('icon', item);
 
   Fliplet.Studio.emit('widget-save-label-update', {
     text: 'Select & Save'
@@ -331,6 +360,7 @@ function initIconProvider(item) {
     Fliplet.Studio.emit('widget-save-label-update', {
       text: 'Save'
     });
+
     iconProvider = null;
     return Promise.resolve();
   });
@@ -361,20 +391,7 @@ function initImageProvider(item) {
 
   Fliplet.Widget.toggleCancelButton(false);
 
-  window.addEventListener('message', function(event) {
-    if (event.data === 'cancel-button-pressed') {
-      Fliplet.Widget.toggleCancelButton(true);
-      imageProvider.close();
-
-      if (_.isEmpty(item.imageConf)) {
-        $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
-        $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
-      }
-      
-      Fliplet.Widget.resetSaveButtonLabel();
-      imageProvider = null;
-    }
-  });
+  initListener('image', item);
 
   Fliplet.Studio.emit('widget-save-label-update', {
     text: 'Select & Save'
