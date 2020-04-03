@@ -287,14 +287,16 @@ function initLinkProvider(item) {
 
 function initListener(provider, item) { 
   window.addEventListener('message', function onMessage(event) {
-    if (event.data === 'cancel-button-pressed') {
-      switch (provider) {
-        case 'icon':
-          onIconClose(item);         
-          break;
-        case 'image':
-          onImageClose(item);
-          break;
+    if (event.data === 'cancel-button-pressed' || event.data === 'save-widget') {
+      if (event.data === 'cancel-button-pressed') {
+        switch (provider) {
+          case 'icon':
+            onIconClose(item);
+            break;
+          case 'image':
+            onImageClose(item);
+            break;
+        }
       }
 
       window.removeEventListener('message', onMessage);
