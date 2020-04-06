@@ -299,6 +299,7 @@ function initListener(provider, item) {
 
       window.removeEventListener('message', onMessage);
       Fliplet.Widget.toggleCancelButton(true);
+      Fliplet.Widget.toggleSaveButton(true);
       Fliplet.Widget.resetSaveButtonLabel();
     }
   });
@@ -336,8 +337,13 @@ function initIconProvider(item) {
     data: item,
     // Events fired from the provider
     onEvent: function(event, data) {
-      if (event === 'interface-validate') {
-        Fliplet.Widget.toggleSaveButton(data.isValid === true);
+      switch (event) {
+        case 'interface-validate':
+          Fliplet.Widget.toggleSaveButton(data.isValid === true);
+          break;
+        case 'icon-clicked':
+          Fliplet.Widget.toggleSaveButton(data.isSelected);
+          break;    
       }
     }
   });
