@@ -287,8 +287,13 @@ function initLinkProvider(item) {
 
 function initListener(provider, item) { 
   window.addEventListener('message', function onMessage(event) {
-    if (event.data === 'cancel-button-pressed' || event.data === 'save-widget') {
-      if (event.data === 'cancel-button-pressed') {
+    // To remove unneeded listener when provider was saved & closed.
+    if (event.data === 'save-widget') {
+      window.removeEventListener('message', onMessage);
+      Fliplet.Widget.toggleCancelButton(true);
+    }
+
+    if (event.data === 'cancel-button-pressed') {
         switch (provider) {
           case 'icon':
             onIconClose(item);
@@ -297,7 +302,6 @@ function initListener(provider, item) {
             onImageClose(item);
             break;
         }
-      }
 
       window.removeEventListener('message', onMessage);
       Fliplet.Widget.toggleCancelButton(true);
