@@ -287,21 +287,21 @@ function initLinkProvider(item) {
 
 function initListener(provider, item) { 
   window.addEventListener('message', function onMessage(event) {
-    // To remove unneeded listener when provider was saved & closed.
+    // Removes listener and enables the cancel button when the provider is saved and closed
     if (event.data === 'save-widget') {
       window.removeEventListener('message', onMessage);
       Fliplet.Widget.toggleCancelButton(true);
     }
 
     if (event.data === 'cancel-button-pressed') {
-        switch (provider) {
-          case 'icon':
-            onIconClose(item);
-            break;
-          case 'image':
-            onImageClose(item);
-            break;
-        }
+      switch (provider) {
+        case 'icon':
+          onIconClose(item);
+          break;
+        case 'image':
+          onImageClose(item);
+          break;
+      }
 
       window.removeEventListener('message', onMessage);
       Fliplet.Widget.toggleCancelButton(true);
