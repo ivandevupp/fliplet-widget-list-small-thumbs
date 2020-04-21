@@ -1,9 +1,9 @@
 // VARS
 var widgetId = Fliplet.Widget.getDefaultId();
 var data = Fliplet.Widget.getData() || {
-    items: []
-  },
-  linkPromises = [];
+  items: []
+};
+var linkPromises = [];
 
 var page = Fliplet.Widget.getPage();
 var omitPages = page ? [page.id] : [];
@@ -19,8 +19,6 @@ var templates = {
   panel: template('list-item-thumb-s')
 };
 
-var $testElement = $('#testelement');
-
 var debounceSave = _.debounce(save, 500);
 
 // Indicate dragging state
@@ -32,8 +30,8 @@ checkPanelLength();
 setTimeout(function() {
   // SORTING PANELS
   $('.panel-group').sortable({
-    handle: ".panel-heading",
-    cancel: ".icon-delete",
+    handle: '.panel-heading',
+    cancel: '.icon-delete',
     tolerance: 'pointer',
     revert: 150,
     placeholder: 'panel panel-default placeholder tile',
@@ -70,7 +68,7 @@ setTimeout(function() {
 
       ui.item.removeClass('focus');
 
-      var sortedIds = $(".panel-group").sortable("toArray", {
+      var sortedIds = $('.panel-group').sortable('toArray', {
         attribute: 'data-id'
       });
       data.items = _.sortBy(data.items, function(item) {
@@ -90,11 +88,10 @@ setTimeout(function() {
 }, 1000);
 
 // EVENTS
-$(".tab-content")
+$('.tab-content')
   .on('click', '.icon-delete', function() {
-
-    var $item = $(this).closest("[data-id], .panel"),
-      id = $item.data('id');
+    var $item = $(this).closest('[data-id], .panel');
+    var id = $item.data('id');
 
     _.remove(data.items, {
       id: id
@@ -111,12 +108,11 @@ $(".tab-content")
     checkPanelLength();
   })
   .on('click', '.add-image', function() {
-
-    var $item = $(this).closest("[data-id], .panel"),
-      id = $item.data('id'),
-      item = _.find(data.items, {
-        id: id
-      });
+    var $item = $(this).closest('[data-id], .panel');
+    var id = $item.data('id');
+    var item = _.find(data.items, {
+      id: id
+    });
 
     initImageProvider(item);
 
@@ -126,12 +122,11 @@ $(".tab-content")
     }
   })
   .on('click', '.image-remove', function() {
-
-    var $item = $(this).closest("[data-id], .panel"),
-      id = $item.data('id'),
-      item = _.find(data.items, {
-        id: id
-      });
+    var $item = $(this).closest('[data-id], .panel');
+    var id = $item.data('id');
+    var item = _.find(data.items, {
+      id: id
+    });
 
     item.imageConf = null;
     $(this).parents('.add-image-holder').find('.add-image').text('Add image');
@@ -139,11 +134,11 @@ $(".tab-content")
     save();
   })
   .on('click', '.add-icon', function() {
-    var $item = $(this).closest("[data-id], .panel"),
-      id = $item.data('id'),
-      item = _.find(data.items, {
-        id: id
-      });
+    var $item = $(this).closest('[data-id], .panel');
+    var id = $item.data('id');
+    var item = _.find(data.items, {
+      id: id
+    });
 
     initIconProvider(item);
 
@@ -153,11 +148,11 @@ $(".tab-content")
     }
   })
   .on('click', '.icon-remove', function() {
-    var $item = $(this).closest("[data-id], .panel"),
-      id = $item.data('id'),
-      item = _.find(data.items, {
-        id: id
-      });
+    var $item = $(this).closest('[data-id], .panel');
+    var id = $item.data('id');
+    var item = _.find(data.items, {
+      id: id
+    });
 
     var iconBak = item.icon;
     item.icon = undefined;
@@ -191,7 +186,7 @@ $(".tab-content")
     item.id = makeid(8);
     item.linkAction = null;
     item.title = 'Panel item ' + ($('#accordion .panel').length + 1);
-    item.description = "";
+    item.description = '';
     data.items.push(item);
 
     addListItem(item);
@@ -255,7 +250,6 @@ function enableSwipeSave() {
 }
 
 function initLinkProvider(item) {
-
   item.linkAction = item.linkAction || {};
   item.linkAction.provId = item.id;
   item.linkAction.omitPages = omitPages;
@@ -285,7 +279,7 @@ function initLinkProvider(item) {
   linkPromises.push(linkActionProvider);
 }
 
-function initListener(provider, item) { 
+function initListener(provider, item) {
   window.addEventListener('message', function onMessage(event) {
     // Removes listener and enables the cancel button when the provider is saved and closed
     if (event.data === 'save-widget') {
@@ -301,6 +295,8 @@ function initListener(provider, item) {
         case 'image':
           onImageClose(item);
           break;
+        default:
+          break;
       }
 
       window.removeEventListener('message', onMessage);
@@ -311,25 +307,25 @@ function initListener(provider, item) {
 }
 
 function onIconClose(item) {
-    iconProvider.close();
+  iconProvider.close();
 
-    if (!item.icon.length) {
-      $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
-      $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
-    }
+  if (!item.icon.length) {
+    $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
+    $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
+  }
 
-    iconProvider = null;
+  iconProvider = null;
 }
 
 function onImageClose(item) {
-    imageProvider.close();
+  imageProvider.close();
 
-    if (_.isEmpty(item.imageConf)) {
-      $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
-      $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
-    }
+  if (_.isEmpty(item.imageConf)) {
+    $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
+    $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
+  }
 
-    imageProvider = null;
+  imageProvider = null;
 }
 
 var iconProvider;
@@ -380,7 +376,7 @@ function initImageProvider(item) {
     type: 'image',
     autoSelectOnUpload: true
   };
-  
+
   imageProvider = Fliplet.Widget.open('com.fliplet.file-picker', {
     // Also send the data I have locally, so that
     // the interface gets repopulated with the same stuff
@@ -406,7 +402,7 @@ function initImageProvider(item) {
   imageProvider.then(function(data) {
     if (data.data) {
       item.imageConf = data.data[0];
-      $('[data-id="' + item.id + '"] .thumb-image img').attr("src", data.data[0].thumbnail);
+      $('[data-id="' + item.id + '"] .thumb-image img').attr('src', data.data[0].thumbnail);
       save();
     }
     imageProvider = null;
@@ -420,11 +416,12 @@ function template(name) {
 }
 
 function makeid(length) {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
 
-  for (var i = 0; i < length; i++)
+  for (var i = 0; i < length; i++) {
     text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
 
   return text;
 }
@@ -459,13 +456,13 @@ function addListItem(data) {
 function checkPanelLength() {
   if (data.items.length > 0) {
     if (data.items.length > 1) {
-      $('.expand-items').removeClass("hidden");
+      $('.expand-items').removeClass('hidden');
     } else {
-      $('.expand-items').addClass("hidden");
+      $('.expand-items').addClass('hidden');
     }
     $('#list-items').removeClass('list-items-empty');
   } else {
-    $('.expand-items').addClass("hidden");
+    $('.expand-items').addClass('hidden');
     $('#list-items').addClass('list-items-empty');
   }
 }
@@ -488,8 +485,8 @@ function save(notifyComplete, dragStop) {
 
   data.swipeToSaveLabel =
     (data.swipeToSave && $('[name="saved_list_label"]').val().length) ?
-    $('[name="saved_list_label"]').val() :
-    'My List';
+      $('[name="saved_list_label"]').val() :
+      'My List';
 
   // forward save request to all providers
   linkPromises.forEach(function(promise) {
