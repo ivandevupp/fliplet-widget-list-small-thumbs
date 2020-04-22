@@ -1,9 +1,9 @@
 window.ui = window.ui || {};
-Fliplet.Widget.instance('list-thumb-s', function (data) {
+Fliplet.Widget.instance('list-thumb-s', function(data) {
   var $container = $(this);
 
   function authenticateImages() {
-    _.forEach(data.items, function (item) {
+    _.forEach(data.items, function(item) {
       if (!_.get(item, 'imageConf.url') || !Fliplet.Media.isRemoteUrl(item.imageConf.url)) {
         return;
       }
