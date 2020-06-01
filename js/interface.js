@@ -5,7 +5,8 @@ var data = Fliplet.Widget.getData() || {
   },
   linkPromises = [];
 
-console.log(data);
+var page = Fliplet.Widget.getPage();
+var omitPages = page ? [page.id] : [];
 
 if (_.isUndefined(data.items)) {
   data.items = [];
@@ -25,6 +26,9 @@ var $testElement = $('#testelement');
 
 var debounceSave = _.debounce(save, 500);
 
+// Indicate dragging state
+var dragging = false;
+
 enableSwipeSave();
 checkPanelLength();
 
@@ -39,6 +43,7 @@ setTimeout(function() {
     cursor: '-webkit-grabbing; -moz-grabbing;',
     axis: 'y',
     start: function(event, ui) {
+      dragging = true;
       var itemId = $(ui.item).data('id');
       var itemProvider = _.find(linkPromises, function(provider) {
         return provider.id === itemId;
@@ -76,6 +81,7 @@ setTimeout(function() {
       });
       $('.panel').not(ui.item).removeClass('faded');
 
+      dragging = false;
       save(false, true);
     },
     sort: function(event, ui) {
@@ -84,10 +90,6 @@ setTimeout(function() {
     }
   });
 }, 1000);
-
-$('#help_tip').on('click', function() {
-  alert("During beta, please use live chat and let us know what you need help with.");
-});
 
 // EVENTS
 $(".tab-content")
@@ -201,6 +203,10 @@ $(".tab-content")
     save();
   })
   .on('show.bs.collapse', '.panel-collapse', function() {
+    if (dragging) {
+      return;
+    }
+
     // Get item ID / Get provider / Get item
     var itemID = $(this).parents('.panel').data('id');
     var itemProvider = _.find(linkPromises, function(provider) {
@@ -254,6 +260,7 @@ function initLinkProvider(item) {
 
   item.linkAction = item.linkAction || {};
   item.linkAction.provId = item.id;
+  item.linkAction.omitPages = omitPages;
 
   var linkActionProvider = Fliplet.Widget.open('com.fliplet.link', {
     // If provided, the iframe will be appended here,
@@ -379,10 +386,17 @@ function initIconProvider(item) {
 
 var imageProvider;
 function initImageProvider(item) {
-  imageProvider = Fliplet.Widget.open('com.fliplet.image-manager', {
+  var filePickerData = {
+    selectFiles: item.imageConf ? [item.imageConf] : [],
+    selectMultiple: false,
+    type: 'image',
+    autoSelectOnUpload: true
+  };
+  
+  imageProvider = Fliplet.Widget.open('com.fliplet.file-picker', {
     // Also send the data I have locally, so that
     // the interface gets repopulated with the same stuff
-    data: item.imageConf,
+    data: filePickerData,
     // Events fired from the provider
     onEvent: function(event, data) {
       if (event === 'interface-validate') {
@@ -399,10 +413,13 @@ function initImageProvider(item) {
     if (event.data === 'cancel-button-pressed') {
       Fliplet.Widget.toggleCancelButton(true);
       imageProvider.close();
+
       if (_.isEmpty(item.imageConf)) {
         $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
         $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
       }
+      
+      imageProvider = null;
     }
   });
 
@@ -412,8 +429,8 @@ function initImageProvider(item) {
 
   imageProvider.then(function(data) {
     if (data.data) {
-      item.imageConf = data.data;
-      $('[data-id="' + item.id + '"] .thumb-image img').attr("src", data.data.thumbnail);
+      item.imageConf = data.data[0];
+      $('[data-id="' + item.id + '"] .thumb-image img').attr("src", data.data[0].thumbnail);
       save();
     }
     imageProvider = null;
@@ -455,6 +472,7 @@ function addListItem(data) {
   $accordionContainer.append($newPanel);
   initColorPicker(data);
 
+  $newPanel.find('.form-control.list-item-desc').attr('placeholder', 'Enter description');
   $newPanel.find('.form-control:eq(0)').select();
   $('.form-horizontal').stop().animate({
     scrollTop: $('.tab-content').height()
@@ -483,8 +501,8 @@ function initColorPicker(item) {
 }
 
 function checkPanelLength() {
-  if ($('.panel').length > 0) {
-    if ($('.panel').length > 1) {
+  if (data.items.length > 0) {
+    if (data.items.length > 1) {
       $('.expand-items').removeClass("hidden");
     } else {
       $('.expand-items').addClass("hidden");
