@@ -323,27 +323,26 @@ function initListener(provider, item) {
 }
 
 function onIconClose(item) {
-  iconProvider.close();
+    iconProvider.close();
 
-  if (!item.icon.length) {
-    $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
-    $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
-  }
+    if (!item.icon.length) {
+      $('[data-id="' + item.id + '"] .add-icon-holder').find('.add-icon').text('Select an icon');
+      $('[data-id="' + item.id + '"] .add-icon-holder').find('.icon-holder').addClass('hidden');
+    }
 
-  iconProvider = null;
+    iconProvider = null;
 }
 
 function onImageClose(item) {
-  imageProvider.close();
+    imageProvider.close();
 
-  if (_.isEmpty(item.imageConf)) {
-    $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
-    $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
-  }
+    if (_.isEmpty(item.imageConf)) {
+      $('[data-id="' + item.id + '"] .add-image-holder').find('.add-image').text('Add image');
+      $('[data-id="' + item.id + '"] .add-image-holder').find('.thumb-holder').addClass('hidden');
+    }
 
-  imageProvider = null;
+    imageProvider = null;
 }
-
 
 var iconProvider;
 function initIconProvider(item) {
@@ -355,8 +354,13 @@ function initIconProvider(item) {
     data: item,
     // Events fired from the provider
     onEvent: function(event, data) {
-      if (event === 'interface-validate') {
-        Fliplet.Widget.toggleSaveButton(data.isValid === true);
+      switch (event) {
+        case 'interface-validate':
+          Fliplet.Widget.toggleSaveButton(data.isValid === true);
+          break;
+        case 'icon-clicked':
+          Fliplet.Widget.toggleSaveButton(data.isSelected);
+          break;    
       }
     }
   });
