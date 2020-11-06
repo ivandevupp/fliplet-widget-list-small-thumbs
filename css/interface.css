@@ -10,6 +10,13 @@ body {
   background-color: transparent;
 }
 
+.help-icon {
+  font-size: 16px;
+  margin-left: 8px;
+  color: #333;
+  opacity: 0.5;
+}
+
 .fl-widget-provider {
   border: 0;
   width: 100%;
