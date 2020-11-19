@@ -82,6 +82,7 @@ setTimeout(function() {
       $('.panel').not(ui.item).removeClass('faded');
 
       dragging = false;
+
       save(false, true);
     },
     sort: function(event, ui) {
