@@ -1,0 +1,23 @@
+{
+  "name": "fliplet-widget-list-small-thumbs",
+  "version": "1.1.0",
+  "description": "List with small thumbnails widget code",
+  "scripts": {
+    "eslint:github-action": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Fliplet/fliplet-widget-list-small-thumbs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Fliplet/fliplet-widget-list-small-thumbs/issues"
+  },
+  "homepage": "https://github.com/Fliplet/fliplet-widget-list-small-thumbs#readme",
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.14.0",
+    "eslint-config-fliplet": "^1.0.5"
+  }
+}

@@ -39,15 +39,11 @@ setTimeout(function() {
     axis: 'y',
     start: function(event, ui) {
       dragging = true;
+
       var itemId = $(ui.item).data('id');
-      var itemProvider = _.find(linkPromises, function(provider) {
-        return provider.id === itemId;
-      });
 
       save();
 
-      // removes provider
-      itemProvider = null;
       _.remove(linkPromises, {
         id: itemId
       });
@@ -71,6 +67,7 @@ setTimeout(function() {
       var sortedIds = $('.panel-group').sortable('toArray', {
         attribute: 'data-id'
       });
+
       data.items = _.sortBy(data.items, function(item) {
         return sortedIds.indexOf(item.id);
       });
@@ -121,6 +118,7 @@ $('.tab-content')
     initImageProvider(item);
 
     $(this).text('Replace image');
+
     if ($(this).siblings('.thumb-holder').hasClass('hidden')) {
       $(this).siblings('.thumb-holder').removeClass('hidden');
     }
@@ -151,6 +149,7 @@ $('.tab-content')
     initIconProvider(item);
 
     $(this).text('Replace icon');
+
     if ($(this).siblings('.icon-holder').hasClass('hidden')) {
       $(this).siblings('.icon-holder').removeClass('hidden');
     }
@@ -163,6 +162,7 @@ $('.tab-content')
     });
 
     var iconBak = item.icon;
+
     item.icon = undefined;
     $(this).parents('.add-icon-holder').find('.add-icon').text('Select an icon');
     $(this).parents('.add-icon-holder').find('.selected-icon').removeClass(iconBak);
@@ -171,6 +171,7 @@ $('.tab-content')
   })
   .on('keyup change paste', '.list-item-title', function() {
     var $listItem = $(this).parents('.panel');
+
     setListItemTitle($listItem.index(), $(this).val());
     debounceSave();
   }).on('keyup change paste', '.list-item-desc', function() {
@@ -179,6 +180,7 @@ $('.tab-content')
     // Update accordionCollapsed if all panels are collapsed/expanded
     if (!$('.panel-collapse.in').length) {
       accordionCollapsed = true;
+    // eslint-disable-next-line eqeqeq
     } else if ($('.panel-collapse.in').length == $('.panel-collapse').length) {
       accordionCollapsed = false;
     }
@@ -191,6 +193,7 @@ $('.tab-content')
   })
   .on('click', '.new-list-item', function() {
     var item = {};
+
     item.id = makeid(8);
     item.linkAction = null;
     item.title = 'Panel item ' + ($('#accordion .panel').length + 1);
@@ -216,10 +219,12 @@ $('.tab-content')
     var item = _.find(data.items, function(item) {
       return item.id === itemID;
     });
+
     // Init the link provider when the accordion opens
     if (!itemProvider && item) {
       initLinkProvider(item);
     }
+
     $(this).siblings('.panel-heading').find('.fa-chevron-right').removeClass('fa-chevron-right').addClass('fa-chevron-down');
   })
   .on('hide.bs.collapse', '.panel-collapse', function() {
@@ -280,6 +285,7 @@ function initLinkProvider(item) {
 
   linkActionProvider.then(function(data) {
     item.linkAction = data && data.data.action !== 'none' ? data.data : null;
+
     return Promise.resolve();
   });
 
@@ -338,6 +344,7 @@ function onImageClose(item) {
 }
 
 var iconProvider;
+
 function initIconProvider(item) {
   item.icon = item.icon || '';
 
@@ -374,13 +381,16 @@ function initIconProvider(item) {
       $('[data-id="' + item.id + '"] .icon-wrapper').find('.selected-icon').addClass(data.data.icon);
       save();
     }
+
     iconProvider = null;
     Fliplet.Studio.emit('widget-save-label-reset');
+
     return Promise.resolve();
   });
 }
 
 var imageProvider;
+
 function initImageProvider(item) {
   var filePickerData = {
     selectFiles: item.imageConf ? [item.imageConf] : [],
@@ -417,8 +427,10 @@ function initImageProvider(item) {
       $('[data-id="' + item.id + '"] .thumb-image img').attr('src', data.data[0].thumbnail);
       save();
     }
+
     imageProvider = null;
     Fliplet.Studio.emit('widget-save-label-reset');
+
     return Promise.resolve();
   });
 }
@@ -454,6 +466,7 @@ function setListItemTitle(index, title) {
 
 function addListItem(data) {
   var $newPanel = $(templates.panel(data));
+
   $accordionContainer.append($newPanel);
 
   $newPanel.find('.form-control.list-item-desc').attr('placeholder', 'Enter description');
@@ -472,6 +485,7 @@ function checkPanelLength() {
     } else {
       $('.expand-items').addClass('hidden');
     }
+
     $('#list-items').removeClass('list-items-empty');
   } else {
     $('.expand-items').addClass('hidden');
