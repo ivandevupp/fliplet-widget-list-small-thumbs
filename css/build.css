@@ -19,6 +19,14 @@
 	cursor: pointer;
 }
 
+.list.list-thumb-s ul.list-holder > li.saved {
+	display: flex;
+}
+
+.list.list-thumb-s.saved-list ul.list-holder > li:not(.saved) {
+	display: none;
+}
+
 .list.list-thumb-s ul > li .list-title {
 	font-size: 1em;
 	font-weight: 600;
