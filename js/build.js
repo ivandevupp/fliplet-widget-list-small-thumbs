@@ -33,11 +33,7 @@ Fliplet.Widget.instance('list-thumb-s', function(data) {
   $container.on('click', '.filter-' + data.id, function(event) {
     var dataset = event.target.dataset;
 
-    if (dataset.filter && dataset.filter === '.saved') {
-      $container.addClass('saved-list');
-    } else {
-      $container.removeClass('saved-list');
-    }
+    $container.toggleClass('saved-list', dataset.filter && dataset.filter === '.saved');
   });
 
   if (data.swipeToSave) {
