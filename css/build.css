@@ -19,14 +19,6 @@
 	cursor: pointer;
 }
 
-.list.list-thumb-s ul.list-holder > li.saved {
-	display: flex;
-}
-
-.list.list-thumb-s.saved-list ul.list-holder > li:not(.saved) {
-	display: none;
-}
-
 .list.list-thumb-s ul > li .list-title {
 	font-size: 1em;
 	font-weight: 600;
@@ -52,7 +44,6 @@
 .list.list-thumb-s ul > li {
 	align-items: center;
 	border-bottom: 1px solid rgba(51,51,51,0.2);
-	display: flex;
 	list-style: none;
 	min-height: 56px;
 	padding: 10px 10px 10px 62px;
